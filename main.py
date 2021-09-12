@@ -14,6 +14,7 @@ class Cooki(commands.Bot):
 
         self.channels = dict()
         self.allowed_roles = set()
+        self.latest = dict()
 
         self.register_commands()
 
@@ -26,6 +27,10 @@ class Cooki(commands.Bot):
             if message.channel in self.channels:
                 if not message.content == self.channels[message.channel]:
                     await message.delete()
+                elif message.author == self.latest[message.channel]:
+                    await message.delete()
+                else:
+                    self.latest[message.channel] = message.author
             else:
                 await self.process_commands(message)
 
@@ -36,6 +41,7 @@ class Cooki(commands.Bot):
             try:
                 channel = await commands.TextChannelConverter().convert(ctx, channel)
                 self.channels[channel] = "🍪"
+                self.latest[channel] = None
                 await ctx.message.add_reaction("🍪")
             except Exception as e:
 
@@ -51,6 +57,7 @@ class Cooki(commands.Bot):
                 channel = await commands.TextChannelConverter().convert(ctx, channel)
                 if channel in self.channels:
                     self.channels.pop(channel)
+                    self.latest.pop(channel)
                     await ctx.message.add_reaction("🍪")
                 else:
                     msg = await ctx.channel.send(f"That channel is not being watched")
@@ -65,7 +72,7 @@ class Cooki(commands.Bot):
         async def watching(ctx):
             if not self.user_perms(ctx.author):
                 return
-            msg = await ctx.channel.send(f"Watching channels: {', '.join([c.mention + 'for ' + self.channels[c] for c in self.channels]) if self.channels else 'None'}")
+            msg = await ctx.channel.send(f"Watching channels: {', '.join([c.mention + 'for ' + self.channels[c] for c in self.channels if c.guild == ctx.guild ]) if self.channels else 'None'}")
             await msg.add_reaction("🍪")
 
         @self.command(aliases=["s"])
