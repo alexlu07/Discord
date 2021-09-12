@@ -72,7 +72,8 @@ class Cooki(commands.Bot):
         async def watching(ctx):
             if not self.user_perms(ctx.author):
                 return
-            msg = await ctx.channel.send(f"Watching channels: {', '.join([c.mention + 'for ' + self.channels[c] for c in self.channels if c.guild == ctx.guild ]) if self.channels else 'None'}")
+            channels_watched = ', '.join([c.mention + 'for ' + self.channels[c] for c in self.channels if c.guild == ctx.guild ])
+            msg = await ctx.channel.send(f"Watching channels: {channels_watched if channels_watched else 'None'}")
             await msg.add_reaction("🍪")
 
         @self.command(aliases=["s"])
