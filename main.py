@@ -34,6 +34,11 @@ class Cooki(commands.Bot):
             else:
                 await self.process_commands(message)
 
+        @self.event
+        async def on_message_edit(before, after):
+            if after.channel in self.channel:
+                await after.delete()
+
         @self.command(aliases=["w"])
         async def watch(ctx, channel):
             if not self.user_perms(ctx.author):
