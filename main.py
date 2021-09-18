@@ -36,7 +36,7 @@ class Cooki(commands.Bot):
 
         @self.event
         async def on_message_edit(before, after):
-            if after.channel in self.channel:
+            if after.channel in self.channels:
                 await after.delete()
 
         @self.command(aliases=["w"])
