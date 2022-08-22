@@ -1,11 +1,7 @@
-import discord
 from discord.ext import commands
 
-with open('.credentials.txt', 'r') as f:
+with open('.token', 'r') as f:
     TOKEN = f.readline().strip()
-
-def cmd(msg, cmd):
-    return msg.content.startswith(cmd)
 
 class Cooki(commands.Bot):
 

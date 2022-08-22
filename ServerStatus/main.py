@@ -2,9 +2,8 @@ import discord
 from discord.ext import commands, tasks
 from mcstatus import JavaServer
 import socket
-import time
 
-with open(".token.txt", "r") as f:
+with open(".token", "r") as f:
     TOKEN = f.readline().strip()
     
 class ServerStatus(commands.Bot):

@@ -1,8 +1,8 @@
 import discord
 from discord.ext import commands
-import os
 
-TOKEN = os.getenv('DISCORD_TOKEN')
+with open(".token", "r") as f:
+    TOKEN = f.readline().strip()
 
 class Cringe(commands.Bot):
 
