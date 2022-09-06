@@ -9,7 +9,9 @@ with open(".token", "r") as f:
 class ServerStatus(commands.Bot):
 
     def __init__(self, command_prefix):
-        commands.Bot.__init__(self, command_prefix=command_prefix)
+        intents = discord.Intents.default()
+
+        commands.Bot.__init__(self, command_prefix=command_prefix, intents=intents)
 
         self.watching = dict()
         self.register_commands()

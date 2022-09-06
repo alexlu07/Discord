@@ -7,7 +7,9 @@ with open(".token", "r") as f:
 class Cringe(commands.Bot):
 
     def __init__(self, command_prefix):
-        commands.Bot.__init__(self, command_prefix=command_prefix)
+        intents = discord.Intents.default()
+
+        commands.Bot.__init__(self, command_prefix=command_prefix, intents=intents)
 
         self.cusers = dict()
         self.allowed_roles = set()
