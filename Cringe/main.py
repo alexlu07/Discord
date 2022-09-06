@@ -8,6 +8,7 @@ class Cringe(commands.Bot):
 
     def __init__(self, command_prefix):
         intents = discord.Intents.default()
+        intents.message_content = True
 
         commands.Bot.__init__(self, command_prefix=command_prefix, intents=intents)
 
